@@ -1,0 +1,26 @@
+name: Docker Image CI for GHCR
+
+on:
+  push
+
+jobs:
+  build_latest_vanilla:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build latest version without changes to the modlist
+        run: |
+          docker login --username voyzark --password ${{ secrets.GH_PAT }} ghcr.io
+          docker build --no-cache -t ghcr.io/voyzark/regrowth:latest -t ghcr.io/voyzark/regrowth:1.0.4 .
+          docker push ghcr.io/voyzark/regrowth:latest
+          docker push ghcr.io/voyzark/regrowth:1.0.4
+  build_latest_custom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build latest version without changes to the modlist
+        run: |
+          docker login --username voyzark --password ${{ secrets.GH_PAT }} ghcr.io
+          docker build --no-cache -t ghcr.io/voyzark/regrowth:latest -t ghcr.io/voyzark/regrowth:latest-custom -t ghcr.io/voyzark/regrowth:1.0.4-custom --build-arg add_custom_mods=1 .
+          docker push ghcr.io/voyzark/regrowth:1.0.4-custom
+          docker push ghcr.io/voyzark/regrowth:latest-custom

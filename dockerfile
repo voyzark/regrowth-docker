@@ -7,6 +7,7 @@ RUN go build
 
 
 FROM adoptopenjdk/openjdk8:alpine-jre AS build_mc
+ARG add_custom_mods
 WORKDIR /build
 RUN apk --update add openssl wget unzip
 RUN wget http://dist.creeper.host/FTB2/modpacks/Regrowth/1_0_2/RegrowthServer.zip 
@@ -21,14 +22,15 @@ RUN rm ServerStart.sh
 RUN rm ServerStart.bat
 
 # Add FTBUtils
-WORKDIR /build/app/mod
-RUN wget https://mediafilez.forgecdn.net/files/2291/494/FTBUtilities-1.7.10-1.0.18.3.jar
-RUN wget https://mediafilez.forgecdn.net/files/2291/433/FTBLib-1.7.10-1.0.18.3.jar
+
+WORKDIR /build/app/mods
+RUN if [[ -n "$add_custom_mods" ]] ; then wget https://mediafilez.forgecdn.net/files/2291/494/FTBUtilities-1.7.10-1.0.18.3.jar ; fi
+RUN if [[ -n "$add_custom_mods" ]] ; then wget https://mediafilez.forgecdn.net/files/2291/433/FTBLib-1.7.10-1.0.18.3.jar ; fi
 
 # Add FastLeafDecay
-RUN wget https://mediafilez.forgecdn.net/files/2272/838/FastLeafDecay-1.7.10-1.4.jar
+RUN if [[ -n "$add_custom_mods" ]] ; then wget https://mediafilez.forgecdn.net/files/2272/838/FastLeafDecay-1.7.10-1.4.jar ; fi
 
-# Add Inventory Tweaks
+# Add Inventory Tweaks ( this should always be added, or client side Inventorytweaks may break as well )
 RUN wget https://mediafilez.forgecdn.net/files/2210/792/InventoryTweaks-1.59-dev-152.jar
 
 
