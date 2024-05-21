@@ -14,10 +14,10 @@ RUN wget http://dist.creeper.host/FTB2/modpacks/Regrowth/1_0_2/RegrowthServer.zi
 RUN unzip RegrowthServer.zip -d app
 
 # Add log4j Fix
+WORKDIR /build/app
 RUN wget https://github.com/CreeperHost/Log4jPatcher/releases/download/v1.0.1/Log4jPatcher-1.0.1.jar
 
 # Clean up
-WORKDIR /build/app
 RUN rm ServerStart.sh
 RUN rm ServerStart.bat
 
