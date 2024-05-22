@@ -21,11 +21,13 @@ RUN wget https://github.com/CreeperHost/Log4jPatcher/releases/download/v1.0.1/Lo
 RUN rm ServerStart.sh
 RUN rm ServerStart.bat
 
-# Add FTBUtils
-
+# Add FTBUtils & Dependencies
 WORKDIR /build/app/mods
 RUN if [[ -n "$add_custom_mods" ]] ; then wget https://mediafilez.forgecdn.net/files/2291/494/FTBUtilities-1.7.10-1.0.18.3.jar ; fi
 RUN if [[ -n "$add_custom_mods" ]] ; then wget https://mediafilez.forgecdn.net/files/2291/433/FTBLib-1.7.10-1.0.18.3.jar ; fi
+
+# Add Chunk Pregenerator
+RUN if [[ -n "$add_custom_mods" ]] ; then wget https://mediafilez.forgecdn.net/files/5242/840/Chunk-Pregenerator-1.7.10-4.4.5.jar ; fi
 
 # Add FastLeafDecay
 RUN if [[ -n "$add_custom_mods" ]] ; then wget https://mediafilez.forgecdn.net/files/2272/838/FastLeafDecay-1.7.10-1.4.jar ; fi
