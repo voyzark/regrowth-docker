@@ -43,26 +43,14 @@ COPY start.sh /app/start.sh
 RUN chmod +x /app/start.sh
 
 # Move all instance specific files to /data
-ADD config-files /data/config
+ADD config-files /config
 
-RUN mkdir --parents /data/world
-RUN mkdir --parents /data/config
-RUN mkdir --parents /logs
-RUN mkdir /data/backups
+RUN ln -sf /config/banned-ips.json banned-ips.json
+RUN ln -sf /config/banned-players.json banned-players.json
+RUN ln -sf /config/ops.json ops.json
+RUN ln -sf /config/server.properties server.properties
+RUN ln -sf /config/whitelist.json whitelist.json
 
-RUN mv config /data/config/config
-
-# Symlink everything
-RUN ln -sf /data/world /app/world
-RUN ln -sf /data/config/config /app/config
-RUN ln -sf /logs /app/logs
-RUN ln -sf /data/backups backups
-
-RUN ln -sf /data/config/banned-ips.json banned-ips.json
-RUN ln -sf /data/config/banned-players.json banned-players.json
-RUN ln -sf /data/config/ops.json ops.json
-RUN ln -sf /data/config/server.properties server.properties
-RUN ln -sf /data/config/whitelist.json whitelist.json
 
 ENV ACCEPT_EULA=false
 STOPSIGNAL SIGTERM
