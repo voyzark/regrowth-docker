@@ -26,8 +26,8 @@ WORKDIR /build/app/mods
 RUN if [[ -n "$add_custom_mods" ]] ; then wget https://mediafilez.forgecdn.net/files/2291/494/FTBUtilities-1.7.10-1.0.18.3.jar ; fi
 RUN if [[ -n "$add_custom_mods" ]] ; then wget https://mediafilez.forgecdn.net/files/2291/433/FTBLib-1.7.10-1.0.18.3.jar ; fi
 
-# Add Chunk Pregenerator
-RUN if [[ -n "$add_custom_mods" ]] ; then wget https://mediafilez.forgecdn.net/files/5242/840/Chunk-Pregenerator-1.7.10-4.4.5.jar ; fi
+# Add Admin Commands Toolbox
+RUN if [[ -n "$add_custom_mods" ]] ; then wget https://mediafilez.forgecdn.net/files/2212/871/AdminCommandsToolbox-0.0.2a_1.7.10.jar ; fi
 
 # Add FastLeafDecay
 RUN if [[ -n "$add_custom_mods" ]] ; then wget https://mediafilez.forgecdn.net/files/2272/838/FastLeafDecay-1.7.10-1.4.jar ; fi
@@ -56,4 +56,4 @@ RUN ln -sf /config/whitelist.json whitelist.json
 
 ENV ACCEPT_EULA=false
 STOPSIGNAL SIGTERM
-CMD ["/app/start.sh"]
+ENTRYPOINT ["/app/start.sh"]
