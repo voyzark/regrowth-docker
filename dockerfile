@@ -45,15 +45,16 @@ COPY start.sh /app/start.sh
 RUN chmod +x /app/start.sh
 
 # Move all instance specific files to /data
-ADD config-files /config
+ADD data/config-files /data/config
+ADD data/ftbu/local /app/local
 
-RUN ln -sf /config/banned-ips.json banned-ips.json
-RUN ln -sf /config/banned-players.json banned-players.json
-RUN ln -sf /config/ops.json ops.json
-RUN ln -sf /config/server.properties server.properties
-RUN ln -sf /config/whitelist.json whitelist.json
+RUN ln -sf /data/config/banned-ips.json banned-ips.json
+RUN ln -sf /data/config/banned-players.json banned-players.json
+RUN ln -sf /data/config/ops.json ops.json
+RUN ln -sf /data/config/server.properties server.properties
+RUN ln -sf /data/config/whitelist.json whitelist.json
 
 
 ENV ACCEPT_EULA=false
 STOPSIGNAL SIGTERM
-CMD ["/app/start.sh"]
+ENTRYPOINT ["/app/start.sh"]
