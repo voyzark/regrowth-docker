@@ -54,7 +54,6 @@ RUN ln -sf /data/config/ops.json ops.json
 RUN ln -sf /data/config/server.properties server.properties
 RUN ln -sf /data/config/whitelist.json whitelist.json
 
-
 ENV ACCEPT_EULA=false
 STOPSIGNAL SIGTERM
 ENTRYPOINT ["/app/start.sh"]
